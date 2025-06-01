@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BharatBhojan – Flavors of India</title>
+<link href="https://fonts.googleapis.com/css2?family=Kurale&family=Mukta:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  /* New Color Palette */
+  :root {
+    --spice-red: #E43D2E;
+    --turmeric: #FFC72C;
+    --mint: #A2D9A5;
+    --deep-blue: #2A3A5E;
+    --cream: #FFF9F0;
+    --dark-text: #2E2E2E;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Mukta', sans-serif;
+    background-color: var(--cream);
+    color: var(--dark-text);
+    line-height: 1.6;
+  }
+  
+  header {
+    background: linear-gradient(135deg, var(--spice-red), var(--turmeric));
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.1)" d="M0,0 L100,0 L100,100 L0,100 Z" /><path fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" d="M0,0 L100,100 M100,0 L0,100" /></svg>');
+    opacity: 0.3;
+  }
+  
+  header h1 {
+    font-family: 'Kurale', serif;
+    font-size: 3rem;
+    margin: 0;
+    position: relative;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    letter-spacing: 1px;
+  }
+  
+  header p {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    font-style: italic;
+    position: relative;
+    opacity: 0.9;
+  }
+  
+  nav {
+    background-color: white;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 1rem;
+    margin: 0;
+    flex-wrap: wrap;
+  }
+  
+  nav ul li {
+    margin: 0 1rem;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: var(--deep-blue);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--spice-red);
+    transition: width 0.3s ease;
+  }
+  
+  nav ul li a:hover::after,
+  nav ul li a:focus::after {
+    width: 100%;
+  }
+  
+  nav ul li a:hover,
+  nav ul li a:focus {
+    color: var(--spice-red);
+    outline: none;
+  }
+  
+  main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  
+  section {
+    margin-bottom: 4rem;
+    position: relative;
+  }
+  
+  section h2 {
+    font-family: 'Kurale', serif;
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--deep-blue);
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  section h2::after {
+    content: '';
+    position: absolute;
+    width: 70%;
+    height: 3px;
+    background: linear-gradient(to right, var(--spice-red), var(--turmeric));
+    bottom: -10px;
+    left: 15%;
+    border-radius: 3px;
+  }
+  
+  .dishes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  
+  .dish-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .dish-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+  
+  .dish-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--spice-red);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    z-index: 1;
+  }
+  
+  .dish-image-container {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .dish-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .dish-card:hover .dish-image {
+    transform: scale(1.05);
+  }
+  
+  .dish-content {
+    padding: 1.5rem;
+  }
+  
+  .dish-name {
+    font-family: 'Kurale', serif;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: var(--deep-blue);
+  }
+  
+  .dish-desc {
+    color: #555;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .dish-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  
+  .dish-price {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--spice-red);
+  }
+  
+  .add-to-cart-btn {
+    background-color: var(--deep-blue);
+    color: white;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: var(--spice-red);
+    transform: translateY(-2px);
+  }
+  
+  /* Cart Section */
+  #cart-section {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    max-width: 700px;
+    margin: 0 auto 4rem auto;
+  }
+  
+  #cart-items {
+    list-style: none;
+    margin: 1.5rem 0;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 1rem 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+  }
+  
+  #cart-items li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  
+  #cart-items li:last-child {
+    border-bottom: none;
+  }
+  
+  .cart-item-name {
+    flex-grow: 1;
+  }
+  
+  .cart-item-price {
+    font-weight: 600;
+    margin: 0 1rem;
+    color: var(--spice-red);
+  }
+  
+  .cart-item-quantity {
+    display: flex;
+    align-items: center;
+    margin: 0 1rem;
+  }
+  
+  .quantity-btn {
+    background-color: #f0f0f0;
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .quantity-btn:hover {
+    background-color: var(--deep-blue);
+    color: white;
+  }
+  
+  .quantity-value {
+    margin: 0 0.5rem;
+    min-width: 20px;
+    text-align: center;
+  }
+  
+  .remove-item-btn {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .remove-item-btn:hover {
+    color: var(--spice-red);
+  }
+  
+  #cart-total {
+    text-align: right;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 1.5rem 0;
+    color: var(--deep-blue);
+  }
+  
+  #cart-total span {
+    color: var(--spice-red);
+  }
+  
+  /* Order Form */
+  #order-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--deep-blue);
+  }
+  
+  #order-form input,
+  #order-form textarea,
+  #order-form select {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Mukta', sans-serif;
+    transition: all 0.3s ease;
+  }
+  
+  #order-form input:focus,
+  #order-form textarea:focus,
+  #order-form select:focus {
+    outline: none;
+    border-color: var(--spice-red);
+    box-shadow: 0 0 0 3px rgba(228, 61, 46, 0.2);
+  }
+  
+  #order-form textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  #place-order-btn {
+    background: linear-gradient(to right, var(--spice-red), var(--turmeric));
+    color: white;
+    border: none;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  #place-order-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(228, 61, 46, 0.4);
+  }
+  
+  /* Footer */
+  footer {
+    background-color: var(--deep-blue);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    text-align: left;
+  }
+  
+  .footer-column h3 {
+    font-family: 'Kurale', serif;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--turmeric);
+  }
+  
+  .footer-column ul {
+    list-style: none;
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-column ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-column ul li a:hover {
+    color: var(--turmeric);
+  }
+  
+  .social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .social-links a {
+    color: white;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+  }
+  
+  .social-links a:hover {
+    color: var(--turmeric);
+  }
+  
+  .copyright {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 2.2rem;
+    }
+    
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    nav ul li {
+      margin: 0.3rem 0;
+    }
+    
+    .dishes-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .dish-image-container {
+      height: 250px;
+    }
+    
+    #cart-items li {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .cart-item-price,
+    .cart-item-quantity {
+      margin-left: auto;
+    }
+  }
+  
+  /* Animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  section {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  section:nth-child(2) { animation-delay: 0.1s; }
+  section:nth-child(3) { animation-delay: 0.2s; }
+  section:nth-child(4) { animation-delay: 0.3s; }
+  section:nth-child(5) { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+<header>
+  <h1>BharatBhojan</h1>
+  <p>Experience the authentic flavors of India</p>
+</header>
+
+<nav aria-label="Main navigation">
+  <ul>
+    <li><a href="#north-indian"><i class="fas fa-mountain"></i> North Indian</a></li>
+    <li><a href="#south-indian"><i class="fas fa-palm-tree"></i> South Indian</a></li>
+    <li><a href="#east-indian"><i class="fas fa-water"></i> East Indian</a></li>
+    <li><a href="#west-indian"><i class="fas fa-umbrella-beach"></i> West Indian</a></li>
+    <li><a href="#cart-section"><i class="fas fa-shopping-cart"></i> Your Cart</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section id="north-indian" tabindex="0" aria-label="North Indian Cuisine Section">
+    <h2>North Indian Cuisine</h2>
+    <div class="dishes-grid">
+      <article class="dish-card" data-id="north1" data-name="Butter Chicken" data-price="350">
+        <div class="dish-image-container">
+          <span class="dish-badge">Chef's Special</span>
+          <img class="dish-image" src="https://videos.openai.com/vg-assets/assets%2Ftask_01jsskh23zf299t6rzdm8z7sdk%2F1745689842_img_0.webp?st=2025-05-31T09%3A27%3A37Z&se=2025-06-06T10%3A27%3A37Z&sks=b&skt=2025-05-31T09%3A27%3A37Z&ske=2025-06-06T10%3A27%3A37Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=aa5ddad1-c91a-4f0a-9aca-e20682cc8969&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=4UDs5sY%2Bw4hGCkMUtDD1hRRB4NlbhI8k5G0VPnl3C9I%3D&az=oaivgprodscus" alt="Butter Chicken" />
+        </div>
+        <div class="dish-content">
+          <h3 class="dish-name">Butter Chicken</h3>
+          <p class="dish-desc">Creamy tomato-based curry with tender chicken, rich and aromatic, originating from Delhi.</p>
+          <div class="dish-footer">
+            <span class="dish-price">₹350</span>
+            <button class="add-to-cart-btn" aria-label="Add Butter Chicken to cart">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="dish-card" data-id="north2" data-name="Chole Bhature" data-price="150">
+        <div class="dish-image-container">
+          <img class="dish-image" src="https://videos.openai.com/vg-assets/assets%2Ftask_01jwgav0c1epwbasb5kan0r1hs%2F1748600000_img_0.webp?st=2025-05-31T09%3A26%3A39Z&se=2025-06-06T10%3A26%3A39Z&sks=b&skt=2025-05-31T09%3A26%3A39Z&ske=2025-06-06T10%3A26%3A39Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=aa5ddad1-c91a-4f0a-9aca-e20682cc8969&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=tI3L96XuXQw%2B91g26vqyyGh5e3wnH829ygq2pO3UxU8%3D&az=oaivgprodscus" alt="Chole Bhature" />
+        </div>
+        <div class="dish-content">
+          <h3 class="dish-name">Chole Bhature</h3>
+          <p class="dish-desc">Spicy chickpea curry served with fluffy deep-fried bread, a popular Punjabi breakfast.</p>
+          <div class="dish-footer">
+            <span class="dish-price">₹150</span>
+            <button class="add-to-cart-btn" aria-label="Add Chole Bhature to cart">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="dish-card" data-id="north3" data-name="Rogan Josh" data-price="400">
+        <div class="dish-image-container">
+          <span class="dish-badge">Premium</span>
+          <img class="dish-image" src="https://t4.ftcdn.net/jpg/07/32/80/49/360_F_732804981_uUby9LV8qD1S9yEfmslvbY7IX2Nhmp82.jpg" alt="Rogan Josh" />
+        </div>
+        <div class="dish-content">
+          <h3 class="dish-name">Rogan Josh</h3>
+          <p class="dish-desc">A fragrant lamb curry with rich spices and vibrant color, a heritage dish from Kashmir.</p>
+          <div class="dish-footer">
+            <span class="dish-price">₹400</span>
+            <button class="add-to-cart-btn" aria-label="Add Rogan Josh to cart">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="south-indian" tabindex="0" aria-label="South Indian Cuisine Section">
+    <h2>South Indian Cuisine</h2>
+    <div class="dishes-grid">
+      <article class="dish-card" data-id="south1" data-name="Dosa" data-price="120">
+        <div class="dish-image-container">
+          <img class="dish-image" src="https://videos.openai.com/vg-assets/assets%2Ftask_01jvcxvep6ezsb3vmhtjsbf3en%2F1747411995_img_2.webp?st=2025-05-31T09%3A28%3A00Z&se=2025-06-06T10%3A28%3A00Z&sks=b&skt=2025-05-31T09%3A28%3A00Z&ske=2025-06-06T10%3A28%3A00Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=aa5ddad1-c91a-4f0a-9aca-e20682cc8969&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=x0SBsbzuS1YuUIVVI%2FmRighY16V7gtJheCw7ViGnquw%3D&az=oaivgprodscus" alt="Dosa" />
+        </div>
+        <div class="dish-content">
+          <h3 class="dish-name">Dosa</h3>
+          <p class="dish-desc">Crispy fermented rice and lentil crepe, stuffed with spiced potatoes, beloved across South India.</p>
+          <div class="dish-footer">
+            <span class="dish-price">₹120</span>
+            <button class="add-to-cart-btn" aria-label="Add Dosa to cart">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="dish-card" data-id="south2" data-name="Hyderabadi Biryani" data-price="380">
+        <div class="dish-image-container">
+          <span class="dish-badge">Best Seller</span>
+          <img class="dish-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjRNMAGaTEwANIVCRaPKvzVF7rZ8j0iEw6AxJlYWnE7Dd8b8evQbmA8eReuS7hoQJtx3k&usqp=CAU" alt="Hyderabadi Biryani" />
+        </div>
+        <div class="dish-content">
+          <h3 class="dish-name">Hyderabadi Biryani</h3>
+          <p class="dish-desc">Aromatic steamed rice layered with marinated meat and fragrant spices from Hyderabad.</p>
+          <div class="dish-footer">
+            <span class="dish-price">₹380</span>
+            <button class="add-to-cart-btn" aria-label="Add Hyderabadi Biryani to cart">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="dish-card" data-id="south3" data-name="Idli with Sambar" data-price="100">
+        <div class="dish-image-container">
+          <img class="dish-image" src="data:image/jpeg;base64,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" alt="Idli with Sambar" />
+        </div>
+        <div class="dish-content">
+          <h3 class="dish-name">Idli with Sambar</h3>
+          <p class="dish-desc">Soft steamed rice cakes served with tangy lentil stew, a staple breakfast in South India.</p>
+          <div class="dish-footer">
+            <span class="dish-price">₹100</span>
+            <button class="add-to-cart-btn" aria-label="Add Idli with Sambar to cart">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="east-indian" tabindex="0" aria-label="East Indian Cuisine Section">
+    <h2>East Indian Cuisine</h2>
+    <div class="dishes-grid">
+      <article class="dish-card" data-id="east1" data-name="Machher Jhol" data-price="320">
+        <div class="dish-image-container">
+          <img class="dish-image" src="https://t4.ftcdn.net/jpg/07/00/32/11/360_F_700321158_UiCMsHGc1tp7E3IJUSsMQaEm8byNVTSj.jpg" alt="Machher Jhol" />
+        </div>
+        <div class="dish-content">
+          <h3 class="dish-name">Machher Jhol</h3>
+          <p class="dish-desc">Spicy fish curry flavored with mustard seed and turmeric, a beloved Bengali dish.</p>
+          <div class="dish-footer">
+            <span class="dish-price">₹320</span>
+            <button class="add-to-cart-btn" aria-label="Add Machher Jhol to cart">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="dish-card" data-id="east2" data-name="Rasgulla" data-price="120">
+        <div class="dish-image-container">
+          <span class="dish-badge">Sweet</span>
+          <img class="dish-image" src="https://videos.openai.com/vg-assets/assets%2Ftask_01jrq7paz0fyer4fndxqbh02eh%2Fimg_0.webp?st=2025-05-31T10%3A21%3A39Z&se=2025-06-06T11%3A21%3A39Z&sks=b&skt=2025-05-31T10%3A21%3A39Z&ske=2025-06-06T11%3A21%3A39Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=aa5ddad1-c91a-4f0a-9aca-e20682cc8969&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=WVA%2B2VaiqnHnkFIrmOFQ3O%2F1I%2BVEcCWWQptoz8pWSSk%3D&az=oaivgprodscus" alt="Rasgulla" />
+        </div>
+        <div class="dish-content">
+          <h3 class="dish-name">Rasgulla</h3>
+          <p class="dish-desc">Soft, spongy cheese balls soaked in sugary syrup, a dessert from Odisha & West Bengal.</p>
+          <div class="dish-footer">
+            <span class="dish-price">₹120</span>
+            <button class="add-to-cart-btn" aria-label="Add Rasgulla to cart">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="dish-card" data-id="east3" data-name="Pitha" data-price="140">
+        <div class="dish-image-container">
+          <img class="dish-image" src="https://thumbs.dreamstime.com/b/pitha-traditional-bangladesh-rice-cakes-made-flour-coconut-jaggery-filled-sweet-savory-fillings-generative-ai-340639028.jpg" alt="Pitha" />
+        </div>
+        <div class="dish-content">
+          <h3 class="dish-name">Pitha</h3>
+          <p class="dish-desc">Traditional rice-based cakes, often stuffed or sweetened, popular in Assam and Bengal.</p>
+          <div class="dish-footer">
+            <span class="dish-price">₹140</span>
+            <button class="add-to-cart-btn" aria-label="Add Pitha to cart">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="west-indian" tabindex="0" aria-label="West Indian Cuisine Section">
+    <h2>West Indian Cuisine</h2>
+    <div class="dishes-grid">
+      <article class="dish-card" data-id="west1" data-name="Dhokla" data-price="130">
+        <div class="dish-image-container">
+          <img class="dish-image" src="https://videos.openai.com/vg-assets/assets%2Ftask_01jtx27f84eadrhqxtz07aszj2%2F1746879698_img_0.webp?st=2025-05-31T10%3A21%3A40Z&se=2025-06-06T11%3A21%3A40Z&sks=b&skt=2025-05-31T10%3A21%3A40Z&ske=2025-06-06T11%3A21%3A40Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=aa5ddad1-c91a-4f0a-9aca-e20682cc8969&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=wBXkC7ZD7ZK97a3BYVIeS0FNh9%2FZ56%2BfyyC5n6Int%2BY%3D&az=oaivgprodscus" alt="Dhokla" />
+        </div>
+        <div class="dish-content">
+          <h3 class="dish-name">Dhokla</h3>
+          <p class="dish-desc">Fluffy, savory steamed cake made from fermented batter, a Gujarati favorite.</p>
+          <div class="dish-footer">
+            <span class="dish-price">₹130</span>
+            <button class="add-to-cart-btn" aria-label="Add Dhokla to cart">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="dish-card" data-id="west2" data-name="Pav Bhaji" data-price="180">
+        <div class="dish-image-container">
+          <span class="dish-badge">Street Food</span>
+          <img class="dish-image" src="https://videos.openai.com/vg-assets/assets%2Ftask_01jt3gx0d9evf91451sa2pae9s%2F1746022885_img_0.webp?st=2025-05-31T10%3A21%3A42Z&se=2025-06-06T11%3A21%3A42Z&sks=b&skt=2025-05-31T10%3A21%3A42Z&ske=2025-06-06T11%3A21%3A42Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=aa5ddad1-c91a-4f0a-9aca-e20682cc8969&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=e0MxfPBoMvgDezsnvhILk4TlMpRD5j%2FMNuhk59WxEMc%3D&az=oaivgprodscus" alt="Pav Bhaji" />
+        </div>
+        <div class="dish-content">
+          <h3 class="dish-name">Pav Bhaji</h3>
+          <p class="dish-desc">Spiced vegetable mash served with buttery bread rolls, famous street food from Mumbai.</p>
+          <div class="dish-footer">
+            <span class="dish-price">₹180</span>
+            <button class="add-to-cart-btn" aria-label="Add Pav Bhaji to cart">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="dish-card" data-id="west3" data-name="Goan Fish Curry" data-price="420">
+        <div class="dish-image-container">
+          <span class="dish-badge">Coastal Special</span>
+          <img class="dish-image" src="https://www.chefkunalkapur.com/wp-content/uploads/2023/01/DSC08225-1300x731.jpg?v=1674579659" alt="Goan Fish Curry" />
+        </div>
+        <div class="dish-content">
+          <h3 class="dish-name">Goan Fish Curry</h3>
+          <p class="dish-desc">Tamarind-based tangy fish curry with coconut milk, iconic coastal Goan delicacy.</p>
+          <div class="dish-footer">
+            <span class="dish-price">₹420</span>
+            <button class="add-to-cart-btn" aria-label="Add Goan Fish Curry to cart">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="cart-section" tabindex="0" aria-label="Shopping Cart and Order Section">
+    <h2>Your Order</h2>
+    <ul id="cart-items" aria-live="polite" aria-relevant="additions"></ul>
+    <p id="cart-total">Total: <span>₹0</span></p>
+    <form id="order-form" aria-label="Place your order form">
+      <div class="form-group">
+        <label for="customer-name">Full Name</label>
+        <input type="text" id="customer-name" name="customer-name" placeholder="Enter your full name" required />
+      </div>
+      <div class="form-group">
+        <label for="customer-phone">Phone Number</label>
+        <input type="tel" id="customer-phone" name="customer-phone" placeholder="Enter your phone number" required />
+      </div>
+      <div class="form-group">
+        <label for="customer-address">Delivery Address</label>
+        <textarea id="customer-address" name="customer-address" placeholder="Enter your complete delivery address" rows="4" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="delivery-time">Preferred Delivery Time</label>
+        <select id="delivery-time" name="delivery-time">
+          <option value="asap">As soon as possible</option>
+          <option value="30min">Within 30 minutes</option>
+          <option value="1hour">Within 1 hour</option>
+          <option value="specific">Specific time (mention in notes)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="order-notes">Special Instructions</label>
+        <textarea id="order-notes" name="order-notes" placeholder="Any special instructions or notes for your order" rows="3"></textarea>
+      </div>
+      <button type="submit" id="place-order-btn">
+        <i class="fas fa-paper-plane"></i> Place Your Order
+      </button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-column">
+      <h3>BharatBhojan</h3>
+      <p>Bringing authentic Indian flavors to your doorstep since 2023. Our mission is to preserve and share India's rich culinary heritage.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="#north-indian">North Indian Cuisine</a></li>
+        <li><a href="#south-indian">South Indian Cuisine</a></li>
+        <li><a href="#east-indian">East Indian Cuisine</a></li>
+        <li><a href="#west-indian">West Indian Cuisine</a></li>
+        <li><a href="#cart-section">Your Cart</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3>Contact Us</h3>
+      <ul>
+        <li><i class="fas fa-map-marker-alt"></i> 123 Spice Street,Hyderabadi</li>
+        <li><i class="fas fa-phone"></i> +91 9392375804</li>
+        <li><i class="fas fa-envelope"></i> contact@bharatbhojan.com</li>
+        <li><i class="fas fa-clock"></i> Open daily 11AM - 10PM</li>
+      </ul>
+    </div>
+  </div>
+  <div class="copyright">
+    &copy; 2023 BharatBhojan. All rights reserved. Crafted with ❤️ in India.
+  </div>
+</footer>
+
+<script>
+  (() => {
+    const cart = [];
+    const cartItemsEl = document.getElementById('cart-items');
+    const cartTotalEl = document.getElementById('cart-total');
+    const orderForm = document.getElementById('order-form');
+
+    // Load cart from localStorage if available
+    function loadCart() {
+      const savedCart = localStorage.getItem('bharatBhojanCart');
+      if (savedCart) {
+        cart.push(...JSON.parse(savedCart));
+        updateCartUI();
+      }
+    }
+
+    // Save cart to localStorage
+    function saveCart() {
+      localStorage.setItem('bharatBhojanCart', JSON.stringify(cart));
+    }
+
+    function updateCartUI() {
+      cartItemsEl.innerHTML = '';
+      
+      if (cart.length === 0) {
+        const emptyItem = document.createElement('li');
+        emptyItem.textContent = 'Your cart is empty. Add some delicious dishes!';
+        emptyItem.style.textAlign = 'center';
+        emptyItem.style.padding = '1.5rem';
+        emptyItem.style.color = '#666';
+        cartItemsEl.appendChild(emptyItem);
+        cartTotalEl.querySelector('span').textContent = '0';
+        return;
+      }
+
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'cart-item-name';
+        nameSpan.textContent = item.name;
+        
+        const priceSpan = document.createElement('span');
+        priceSpan.className = 'cart-item-price';
+        priceSpan.textContent = `₹${item.price}`;
+        
+        const quantityDiv = document.createElement('div');
+        quantityDiv.className = 'cart-item-quantity';
+        
+        const decreaseBtn = document.createElement('button');
+        decreaseBtn.className = 'quantity-btn';
+        decreaseBtn.innerHTML = '<i class="fas fa-minus"></i>';
+        decreaseBtn.setAttribute('aria-label', `Decrease quantity of ${item.name}`);
+        decreaseBtn.addEventListener('click', () => {
+          if (item.quantity > 1) {
+            item.quantity--;
+          } else {
+            cart.splice(index, 1);
+          }
+          updateCartUI();
+          saveCart();
+        });
+        
+        const quantitySpan = document.createElement('span');
+        quantitySpan.className = 'quantity-value';
+        quantitySpan.textContent = item.quantity;
+        
+        const increaseBtn = document.createElement('button');
+        increaseBtn.className = 'quantity-btn';
+        increaseBtn.innerHTML = '<i class="fas fa-plus"></i>';
+        increaseBtn.setAttribute('aria-label', `Increase quantity of ${item.name}`);
+        increaseBtn.addEventListener('click', () => {
+          item.quantity++;
+          updateCartUI();
+          saveCart();
+        });
+        
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'remove-item-btn';
+        removeBtn.innerHTML = '<i class="fas fa-trash"></i>';
+        removeBtn.setAttribute('aria-label', `Remove ${item.name} from cart`);
+        removeBtn.addEventListener('click', () => {
+          cart.splice(index, 1);
+          updateCartUI();
+          saveCart();
+        });
+        
+        quantityDiv.appendChild(decreaseBtn);
+        quantityDiv.appendChild(quantitySpan);
+        quantityDiv.appendChild(increaseBtn);
+        
+        li.appendChild(nameSpan);
+        li.appendChild(priceSpan);
+        li.appendChild(quantityDiv);
+        li.appendChild(removeBtn);
+        
+        cartItemsEl.appendChild(li);
+      });
+
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      cartTotalEl.querySelector('span').textContent = total;
+    }
+
+    function addToCart(id, name, price) {
+      const existingItem = cart.find(item => item.id === id);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        cart.push({ id, name, price, quantity: 1 });
+      }
+      updateCartUI();
+      saveCart();
+    }
+
+    // Attach event listeners to add-to-cart buttons
+    const addButtons = document.querySelectorAll('.add-to-cart-btn');
+    addButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        const card = e.target.closest('.dish-card');
+        const id = card.getAttribute('data-id');
+        const name = card.getAttribute('data-name');
+        const price = parseInt(card.getAttribute('data-price'), 10);
+        addToCart(id, name, price);
+        // Show a small confirmation
+        e.target.textContent = 'Added!';
+        e.target.disabled = true;
+        setTimeout(() => {
+          e.target.textContent = 'Add';
+          e.target.disabled = false;
+        }, 1200);
+      });
+    });
+
+    orderForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (cart.length === 0) {
+        alert('Your cart is empty. Please add some dishes before placing an order.');
+        return;
+      }
+      const name = orderForm['customer-name'].value.trim();
+      const phone = orderForm['customer-phone'].value.trim();
+      const address = orderForm['customer-address'].value.trim();
+      const deliveryTime = orderForm['delivery-time'].value;
+      const notes = orderForm['order-notes'].value.trim();
+      if (!name || !phone || !address) {
+        alert('Please fill in your name, phone number, and address.');
+        return;
+      }
+      // Simulate order process
+      alert(`Thank you, ${name}! Your order for ₹${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)} has been placed.\nDelivery Address: ${address}\nPreferred Delivery Time: ${deliveryTime}\nSpecial Instructions: ${notes}`);
+      
+      // Clear cart and form
+      cart.length = 0;
+      updateCartUI();
+      orderForm.reset();
+      localStorage.removeItem('bharatBhojanCart'); // Clear cart from localStorage
+    });
+
+    // Load cart on page load
+    loadCart();
+  })();
+</script>
